@@ -660,14 +660,14 @@ your path down the rabbit hole.</message>
   </dependencyManagement>
 
   <distributionManagement>
-    <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
     <repository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+      <id>nexus-releases</id>
+      <url>http://47.94.222.227:8081/repository/maven-releases/</url>
     </repository>
+    <snapshotRepository>
+      <id>nexus-snapshot</id>
+      <url>http://47.94.222.227:8081/repository/maven-snapshots/</url>
+    </snapshotRepository>
   </distributionManagement>
 
   <profiles>
