@@ -177,52 +177,7 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-enforcer-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>require-java-8</id>
-            <phase>validate</phase>
-            <goals>
-              <goal>enforce</goal>
-            </goals>
-            <configuration>
-              <rules>
-                <requireJavaVersion>
-                  <version>(,1.9)</version>
-                  <message>
-***********
-Enunciate is currently required to be built with Java 8.
-***********
-                  </message>
-                </requireJavaVersion>
-              </rules>
-            </configuration>
-          </execution>
-          <execution>
-            <id>require.full.tests.for.deploy</id>
-            <phase>deploy</phase>
-            <goals>
-              <goal>enforce</goal>
-            </goals>
-            <configuration>
-              <rules>
-                <requireProperty>
-                  <property>activate.full.tests</property>
-                  <regex>true</regex>
-                  <message>In order to deploy Enunciate, you must run the full test suite.
-This will include some tricky setup because your environment
-needs to be able to run tests that exercise Enunciate's client-side
-code generation in a variety of different platforms (C#, C, Obj-C,
-PHP, Ruby, etc.). Enable the 'enunciate-full-tests' profile to start
-your path down the rabbit hole.</message>
-                </requireProperty>
-              </rules>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
+
       <plugin>
         <groupId>com.mycila</groupId>
         <artifactId>license-maven-plugin</artifactId>
@@ -681,33 +636,7 @@ your path down the rabbit hole.</message>
       <id>release</id>
       <build>
         <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-enforcer-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>require.full.tests.for.release</id>
-                <phase>deploy</phase>
-                <goals>
-                  <goal>enforce</goal>
-                </goals>
-                <configuration>
-                  <rules>
-                    <requireProperty>
-                      <property>activate.full.tests</property>
-                      <regex>true</regex>
-                      <message>In order to release Enunciate, you must run the full test suite.
-This will include some tricky setup because your environment
-needs to be able to run tests that exercise Enunciate's client-side
-code generation in a variety of different platforms (C#, C, Obj-C,
-PHP, Ruby, etc.). Enable the 'enunciate-full-tests' profile to start
-your path down the rabbit hole.</message>
-                    </requireProperty>
-                  </rules>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
+
           <plugin>
             <groupId>org.sonatype.plugins</groupId>
             <artifactId>nexus-staging-maven-plugin</artifactId>
