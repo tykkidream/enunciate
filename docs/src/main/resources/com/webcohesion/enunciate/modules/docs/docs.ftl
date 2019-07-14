@@ -78,8 +78,6 @@
   <link rel="shortcut icon" href="${favicon}" type="image/x-icon" />
   [/#if]
 
-  <link rel="stylesheet" href="css/code-prettify/prettify.css">
-
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -161,7 +159,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
   <!-- prettify code blocks. see http://code.google.com/p/google-code-prettify/ -->
-  <script src="js/code-prettify/run_prettify.js" type="text/javascript"></script>
+  <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js" type="text/javascript"></script>
   <script>
     $(function() {
       $(".clickable-row").click(function() {
@@ -588,7 +586,7 @@
           [#if method.parameters?size > 0]
 
         <table class="table resource-parameters">
-          <caption>Request Parameters （表单提交参数的形式，比如 application/x-www-form-urlencoded ）</caption>
+          <caption>Request Parameters</caption>
           <thead>
           <tr>
             <th>name</th>
