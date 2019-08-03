@@ -101,8 +101,11 @@ public class DecoratedProcessingEnvironment implements ProcessingEnvironment {
   }
 
   public SourcePosition findSourcePosition(Element element) {
+    System.out.println("====>>>>>>>> 类：" +  element.getClass() + " ====>>>>>>>> " + element.getSimpleName());
+
     while (element instanceof DecoratedElement) {
       element = ((DecoratedElement) element).getDelegate();
+      System.out.println("     ====>>>>>>>> 类：" +  element.getClass() + " ====>>>>>>>> " + element.getSimpleName());
     }
 
     if (element instanceof ElementAdaptor) {
@@ -110,9 +113,13 @@ public class DecoratedProcessingEnvironment implements ProcessingEnvironment {
     }
 
     TreePath path = this.trees.getPath(element);
+    System.out.println("     ====>>>>>>>> Path：" +  path);
     if (path != null) {
+      System.out.println("     ====>>>>>>>> Parent Path：" +  path.getParentPath());
       CompilationUnitTree cu = path.getCompilationUnit();
+      System.out.println("     ====>>>>>>>> Compilation Unit：" +  cu);
       SourcePositions positions = this.trees.getSourcePositions();
+      System.out.println("     ====>>>>>>>> Source Positions：" +  positions);
       long position = positions.getStartPosition(cu, path.getLeaf());
       long line = cu.getLineMap().getLineNumber(position);
       long column = cu.getLineMap().getColumnNumber(position);

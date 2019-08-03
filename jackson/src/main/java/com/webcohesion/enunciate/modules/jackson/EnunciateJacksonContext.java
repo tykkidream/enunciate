@@ -364,10 +364,12 @@ public class EnunciateJacksonContext extends EnunciateModuleContext {
         debug("Added %s as a Jackson type definition.", typeDef.getQualifiedName());
       }
 
+      debug("开始找 %s 的源代码：begin", typeDef.getQualifiedName());
       if (getContext().getProcessingEnvironment().findSourcePosition(typeDef) == null) {
         OneTimeLogMessage.SOURCE_FILES_NOT_FOUND.log(getContext());
         debug("Unable to find source file for %s.", typeDef.getQualifiedName());
       }
+      debug("开始找 %s 的源代码：end", typeDef.getQualifiedName());
 
       typeDef.getReferencedFrom().addAll(stack);
       try {
