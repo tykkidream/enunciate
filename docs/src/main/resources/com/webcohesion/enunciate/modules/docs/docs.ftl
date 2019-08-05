@@ -155,30 +155,6 @@
 
   <!-- JavaScript placed at the end of the document so the pages load faster. -->
   <script src="js/jquery/jquery.min.js"></script>
-  <script src="js/editor/marked.min.js"></script>
-  <script src="js/editor/prettify.min.js"></script>
-  <script src="js/editor/raphael.min.js"></script>
-  <script src="js/editor/underscore.min.js"></script>
-  <script src="js/editor/sequence-diagram.min.js"></script>
-  <script src="js/editor/flowchart.min.js"></script>
-  <script src="js/editor/jquery.flowchart.min.js"></script>
-  <script src="js/editor/editormd.min.js"></script>
-
-  <script type="text/javascript">
-    function convertMarkdownToHtml(id) {
-      testEditormdView = editormd.markdownToHTML(id, {
-        //markdown        : markdownObj.text(),
-        htmlDecode      : "style,script,iframe",  // you can filter tags decode
-        tocm            : true,    // Using [TOCM]
-        // markdownSourceCode : true, // 是否保留 Markdown 源码，即是否删除保存源码的 Textarea 标签
-        emoji           : true,
-        taskList        : true,
-        tex             : true,  // 默认不解析
-        flowChart       : true,  // 默认不解析
-        sequenceDiagram : true,  // 默认不解析
-      });
-    }
-  </script>
 
 
   <!-- Bootstrap core JavaScript
@@ -217,6 +193,33 @@
     [#assign pagenav=pagenav + [{ "href" : "#" + syntax.slug, "title" : syntax.label }]/]
   [/#list]
   [@boilerplate pagenav=pagenav]
+
+  <script src="js/jquery/jquery.min.js"></script>
+  <script src="js/editor/marked.min.js"></script>
+  <script src="js/editor/prettify.min.js"></script>
+  <script src="js/editor/raphael.min.js"></script>
+  <script src="js/editor/underscore.min.js"></script>
+  <script src="js/editor/sequence-diagram.min.js"></script>
+  <script src="js/editor/flowchart.min.js"></script>
+  <script src="js/editor/jquery.flowchart.min.js"></script>
+  <script src="js/editor/editormd.min.js"></script>
+
+  <script type="text/javascript">
+      function convertMarkdownToHtml(id) {
+          testEditormdView = editormd.markdownToHTML(id, {
+              //markdown        : markdownObj.text(),
+              htmlDecode      : "style,script,iframe",  // you can filter tags decode
+              tocm            : true,    // Using [TOCM]
+              // markdownSourceCode : true, // 是否保留 Markdown 源码，即是否删除保存源码的 Textarea 标签
+              emoji           : true,
+              taskList        : true,
+              tex             : true,  // 默认不解析
+              flowChart       : true,  // 默认不解析
+              sequenceDiagram : true,  // 默认不解析
+          });
+      }
+  </script>
+
     [#if apiDoc??]
       <div class="page-header">
         ${apiDoc}
@@ -269,7 +272,12 @@
               [/#if]
               <td class="text-nowrap"><ul class="list-unstyled">[#list resourceGroup.paths as path]<li><samp>[@deprecation element=resourceGroup]<span class="resource-path">[#if includeApplicationPath!false && resourceGroup.relativeContextPath?length > 0]/${resourceGroup.relativeContextPath}[/#if]${path.path}</span>[/@deprecation]</samp></li>[/#list]</ul></td>
               <td class="text-nowrap"><ul class="list-unstyled">[#list resourceGroup.paths as path]<li><samp>[@deprecation element=resourceGroup][#list path.methods as method]<span class="label label-default resource-method">${method}</span> [/#list][/@deprecation]</samp></li>[/#list]</ul></td>
-              <td>[@deprecation element=resourceGroup]<span class="resource-description">${resourceGroup.description!"&nbsp;"}</span>[/@deprecation]</td>
+              <td id='${resourceGroup.slug!"&nbsp;"}'>[@deprecation element=resourceGroup]<span class="resource-description"><textarea style="width: 100%; border: 0px;" readonly>${resourceGroup.description!"&nbsp;"}</textarea></span>[/@deprecation]</td>
+                <script type="text/javascript">
+                    $(function() {
+                        convertMarkdownToHtml('${resourceGroup.slug!"&nbsp;"}');
+                    });
+                </script>
             </tr>
           [/#list]
           </tbody>
@@ -335,7 +343,12 @@
               [#list ns.types as type]
                 <tr class="clickable-row" data-href="${type.slug}.html">
                   <td>[@deprecation element=type]<span class="datatype-name[#list type.styles as style] ${style}[/#list]">${type.label}</span>[/@deprecation]</td>
-                  <td>[@deprecation element=type]<span class="datatype-description">${type.description}</span>[/@deprecation]</td>
+                   <td id='${type.slug!"&nbsp;"}'>[@deprecation element=type]<span class="datatype-description"><textarea style="width: 100%; border: 0px;" readonly>${type.description!"&nbsp;"}</textarea></span>[/@deprecation]</td>
+                    <script type="text/javascript">
+                        $(function() {
+                            convertMarkdownToHtml('${type.slug!"&nbsp;"}');
+                        });
+                    </script>
                 </tr>
               [/#list]
               </tbody>
@@ -569,10 +582,15 @@
       </script>
 
 
-      <h1 class="page-header">${resourceGroup.label} <small>Resource</small></h1>
+      <h1 class="page-header" >${resourceGroup.label}<small>Resource</small></h1>
       [#if resourceGroup.description??]
 
-        <p>${resourceGroup.description}</p>
+        <p id="page_header_description"><textarea style="width: 100%; border: 0px;" readonly>${resourceGroup.description}</textarea></p>
+                    <script type="text/javascript">
+                        $(function() {
+                            convertMarkdownToHtml("page_header_description");
+                        });
+                    </script>
       [/#if]
       [#list resourceGroup.resources as resource]
         [#if resource.since?? || resource.version?? || resource.seeAlso??]
@@ -604,12 +622,12 @@
             [/#if]
             [#if method.description??]
 
-              <p  id="${method.slug}_description"><textarea style="display:none;">${method.description}</textarea></p>
+              <p  id="${method.slug}_description"><textarea  style="width: 100%; border: 0px;" readonly>${method.description}</textarea></p>
               <script type="text/javascript">
                 $(function() {
                   convertMarkdownToHtml("${method.slug}_description");
                 });
-            </script>
+              </script>
             [/#if]
             [#-- would be nice to enable a "Try it out" link to Swagger. See https://github.com/swagger-api/swagger-spec/issues/239
             [#if swaggerUI??]
@@ -1078,14 +1096,44 @@ ${method.example.responseBody?xhtml}
   [/#if]
   [@file name=type.slug + ".html"]
     [@boilerplate title=title + ": " + type.label breadcrumbs=[{"title" : "Home", "href" : indexPageName}, {"title" : type.syntax.label , "href" : type.syntax.slug + ".html"}, {"title" : type.label , "href" : type.slug + ".html"} ] pagenav=pagenav codeblocks=true]
-      <h1 class="page-header">${type.label} <small>Data Type</small></h1>
+  <script src="js/jquery/jquery.min.js"></script>
+  <script src="js/editor/marked.min.js"></script>
+  <script src="js/editor/prettify.min.js"></script>
+  <script src="js/editor/raphael.min.js"></script>
+  <script src="js/editor/underscore.min.js"></script>
+  <script src="js/editor/sequence-diagram.min.js"></script>
+  <script src="js/editor/flowchart.min.js"></script>
+  <script src="js/editor/jquery.flowchart.min.js"></script>
+  <script src="js/editor/editormd.min.js"></script>
+
+  <script type="text/javascript">
+      function convertMarkdownToHtml(id) {
+          testEditormdView = editormd.markdownToHTML(id, {
+              //markdown        : markdownObj.text(),
+              htmlDecode      : "style,script,iframe",  // you can filter tags decode
+              tocm            : true,    // Using [TOCM]
+              // markdownSourceCode : true, // 是否保留 Markdown 源码，即是否删除保存源码的 Textarea 标签
+              emoji           : true,
+              taskList        : true,
+              tex             : true,  // 默认不解析
+              flowChart       : true,  // 默认不解析
+              sequenceDiagram : true,  // 默认不解析
+          });
+      }
+  </script>
+
+    <h1 class="page-header">${type.label} <small>Data Type</small></h1>
       [#if type.deprecated??]
 
         <div class="alert alert-danger">This data type has been deprecated. ${type.deprecated}</div>
       [/#if]
       [#if type.description??]
-
-        <p>${type.description}</p>
+        <p id="page_header_description"><textarea style="width: 100%; border: 0px;" readonly>${type.description}</textarea></p>
+                    <script type="text/javascript">
+                        $(function() {
+                            convertMarkdownToHtml("page_header_description");
+                        });
+        </script>
       [/#if]
 
       <dl class="dl-horizontal">
@@ -1170,7 +1218,12 @@ ${method.example.responseBody?xhtml}
               [#list type.propertyMetadata?keys as meta]
                 <td>[@deprecation element=property]<span class="property-${meta}">[@printPropertyMetadata property=property meta=meta/]</span>[/@deprecation]</td>
               [/#list]
-              <td>[@deprecation element=property]<span class="property-description">[#if property.since??]<span class="label label-default">since ${property.since}</span> [/#if]${property.description!"&nbsp;"}</span>[/@deprecation]</td>
+              <td>[@deprecation element=property]<span class="property-description">[#if property.since??]<span class="label label-default">since ${property.since}</span> [/#if] <div id="abcabce-${property_index}"><textarea  style="width: 100%; border: 0px;" readonly>${property.description!"&nbsp;"}</textarea></div></span>[/@deprecation]</td>
+                <script type="text/javascript">
+                    $(function() {
+                        convertMarkdownToHtml("abcabce-${property_index}");
+                    });
+                </script>
             </tr>
           [/#list]
           </tbody>
@@ -1188,7 +1241,12 @@ ${method.example.responseBody?xhtml}
                     [#list type.propertyMetadata?keys as meta]
                       <td><span class="property-${meta}">[@printPropertyMetadata property=superProperty meta=meta/]</span></td>
                     [/#list]
-                    <td><span class="property-description">[#if superProperty.since??]<span class="label label-default">since ${superProperty.since}</span> [/#if]${superProperty.description!"&nbsp;"}</span></td>
+                    <td><span class="property-description">[#if superProperty.since??]<span class="label label-default">since ${superProperty.since}</span> [/#if]<div id="abcabc-${superProperty_index}"><textarea  style="width: 100%; border: 0px;" readonly>${superProperty.description!"&nbsp;"}</textarea></div></span></td>
+                      <script type="text/javascript">
+                          $(function() {
+                              convertMarkdownToHtml("abcabc-${superProperty_index}");
+                          });
+                      </script>
                   </tr>
                 [/#list]
                 </tbody>
