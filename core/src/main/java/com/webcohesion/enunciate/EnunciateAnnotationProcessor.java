@@ -57,6 +57,8 @@ public class EnunciateAnnotationProcessor extends AbstractProcessor {
   public synchronized void init(ProcessingEnvironment processingEnv) {
     super.init(processingEnv);
 
+    // this.enunciate.getLogger().debug("源文件列表 %s.", new EnunciateLogger.ListWriter(processingEnv.getFiler());
+
     //set up the processing environment.
     ArrayList<ElementDecoration> elementDecorations = new ArrayList<ElementDecoration>();
     ArrayList<TypeMirrorDecoration> typeMirrorDecorations = new ArrayList<TypeMirrorDecoration>();

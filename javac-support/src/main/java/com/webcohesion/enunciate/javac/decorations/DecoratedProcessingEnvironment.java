@@ -21,12 +21,14 @@ import com.sun.source.util.TreePath;
 import com.sun.source.util.Trees;
 import com.webcohesion.enunciate.javac.decorations.adaptors.ElementAdaptor;
 import com.webcohesion.enunciate.javac.decorations.element.DecoratedElement;
+import com.webcohesion.enunciate.javac.decorations.element.DecoratedTypeElement;
 
 import javax.annotation.processing.Filer;
 import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import java.util.List;
@@ -105,7 +107,13 @@ public class DecoratedProcessingEnvironment implements ProcessingEnvironment {
 
     while (element instanceof DecoratedElement) {
       element = ((DecoratedElement) element).getDelegate();
-      System.out.println("     ====>>>>>>>> 类：" +  element.getClass() + " ====>>>>>>>> " + element.getSimpleName());
+      if (element instanceof TypeElement) {
+        System.out.println("     ====>>>>>>>> 类：" +  element.getClass() + " ====>>>>>>>> " + ((TypeElement)element).getQualifiedName());
+      } else if (element instanceof DecoratedTypeElement) {
+        System.out.println("     ====>>>>>>>> 类：" +  element.getClass() + " ====>>>>>>>> " + ((DecoratedTypeElement)element).getQualifiedName());
+      } else {
+        System.out.println("     ====>>>>>>>> 类：" +  element.getClass() + " ====>>>>>>>> " + element.getSimpleName()  + " ====>>>>>>>> " + element.getClass());
+      }
     }
 
     if (element instanceof ElementAdaptor) {
