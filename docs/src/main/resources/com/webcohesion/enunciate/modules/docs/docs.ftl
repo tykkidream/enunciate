@@ -662,7 +662,7 @@
             [#if method.parameters?size > 0]
 
               <table class="table resource-parameters">
-                <caption>Request Parameters （表单提交参数的形式，比如 application/x-www-form-urlencoded ）</caption>
+                <caption>Request Parameters （以表单 key=value 的方式提交参数，比如 application/x-www-form-urlencoded ）</caption>
                 <thead>
                 <tr>
                   <th>name</th>
@@ -705,7 +705,7 @@
             [#if method.requestEntity??]
 
               <table class="table resource-request-body">
-                <caption>Request Body</caption>
+                <caption>Request Body （以 payload 的方式提交参数，比如 application/json 提交方式）</caption>
                 <thead>
                 <tr>
                   <th>media type</th>
@@ -763,7 +763,7 @@
             [#if method.responseEntity??]
 
               <table class="table resource-response-body">
-                <caption>Response Body</caption>
+                <caption>Response Body （以 payload 的方式返回结果，比如 application/json 提交方式）</caption>
                 <thead>
                 <tr>
                   <th>media type</th>
