@@ -662,19 +662,19 @@
             [#if method.parameters?size > 0]
 
               <table class="table resource-parameters">
-                <caption>Request Parameters （表单提交参数的形式，比如 application/x-www-form-urlencoded ）</caption>
+                <caption>Request Parameters 请求参数 （以表单 key=value 的方式提交参数，比如 application/x-www-form-urlencoded ）</caption>
                 <thead>
                 <tr>
-                  <th>name</th>
-                  <th>type</th>
-                  <th>description</th>
+                  <th>name 参数名</th>
+                  <th>type 参数类型</th>
+                  <th>description 参数描述</th>
                   [#assign includeDefault=method.includeDefaultParameterValues/]
                   [#if includeDefault]
-                    <th>default</th>
+                    <th>default 参数默认值</th>
                   [/#if]
                   [#assign includeConstraints=method.hasParameterConstraints/]
                   [#if includeConstraints]
-                    <th>constraints</th>
+                    <th>constraints 参数约束</th>
                   [/#if]
                   [#assign includeMultiplicity=method.hasParameterMultiplicity/]
                   [#if includeMultiplicity]
@@ -705,13 +705,13 @@
             [#if method.requestEntity??]
 
               <table class="table resource-request-body">
-                <caption>Request Body （以 payload 的方式提交参数，比如 application/json 提交方式）</caption>
+                <caption>Request Body 请求数据 （以 payload 的方式提交参数，比如 application/json 提交方式）</caption>
                 <thead>
                 <tr>
                   <th>media type</th>
-                  <th>data type</th>
+                  <th>data type 数据类型</th>
                   [#if method.requestEntity.description??]
-                    <th>description</th>
+                    <th>description 数据描述</th>
                   [/#if]
                 </tr>
                 </thead>
@@ -763,13 +763,13 @@
             [#if method.responseEntity??]
 
               <table class="table resource-response-body">
-                <caption>Response Body （以 payload 的方式返回结果，比如 application/json 提交方式）</caption>
+                <caption>Response Body 返回数据 （以 payload 的方式返回结果，比如 application/json 提交方式）</caption>
                 <thead>
                 <tr>
                   <th>media type</th>
-                  <th>data type</th>
+                  <th>data type 数据类型</th>
                   [#if method.responseEntity.description??]
-                    <th>description</th>
+                    <th>description 数据描述</th>
                   [/#if]
                 </tr>
                 </thead>
@@ -1199,15 +1199,19 @@ ${method.example.responseBody?xhtml}
       [#if type.properties??]
 
         <table class="table datatype-properties">
-          <caption>Properties</caption>
+          <caption>Properties 字段信息</caption>
           <thead>
           <tr>
-            <th>name</th>
-            <th>data type</th>
+            <th>name 字段名</th>
+            <th>data type 字段类型</th>
             [#list type.propertyMetadata?keys as meta]
-              <th>${type.propertyMetadata[meta]}</th>
+              [#if type.propertyMetadata[meta] == "constraints"]
+                <th>constraints 字段约束</th>
+              [#else]
+                <th>${type.propertyMetadata[meta]}</th>
+              [/#if]
             [/#list]
-            <th>description</th>
+            <th>description 字段描述</th>
           </tr>
           </thead>
           <tbody>

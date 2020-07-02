@@ -194,31 +194,31 @@
   [/#list]
   [@boilerplate pagenav=pagenav]
 
-  <script src="js/jquery/jquery.min.js"></script>
-  <script src="js/editor/marked.min.js"></script>
-  <script src="js/editor/prettify.min.js"></script>
-  <script src="js/editor/raphael.min.js"></script>
-  <script src="js/editor/underscore.min.js"></script>
-  <script src="js/editor/sequence-diagram.min.js"></script>
-  <script src="js/editor/flowchart.min.js"></script>
-  <script src="js/editor/jquery.flowchart.min.js"></script>
-  <script src="js/editor/editormd.min.js"></script>
+    <script src="js/jquery/jquery.min.js"></script>
+    <script src="js/editor/marked.min.js"></script>
+    <script src="js/editor/prettify.min.js"></script>
+    <script src="js/editor/raphael.min.js"></script>
+    <script src="js/editor/underscore.min.js"></script>
+    <script src="js/editor/sequence-diagram.min.js"></script>
+    <script src="js/editor/flowchart.min.js"></script>
+    <script src="js/editor/jquery.flowchart.min.js"></script>
+    <script src="js/editor/editormd.min.js"></script>
 
-  <script type="text/javascript">
+    <script type="text/javascript">
       function convertMarkdownToHtml(id) {
-          testEditormdView = editormd.markdownToHTML(id, {
-              //markdown        : markdownObj.text(),
-              htmlDecode      : "style,script,iframe",  // you can filter tags decode
-              tocm            : true,    // Using [TOCM]
-              // markdownSourceCode : true, // 是否保留 Markdown 源码，即是否删除保存源码的 Textarea 标签
-              emoji           : true,
-              taskList        : true,
-              tex             : true,  // 默认不解析
-              flowChart       : true,  // 默认不解析
-              sequenceDiagram : true,  // 默认不解析
-          });
+        testEditormdView = editormd.markdownToHTML(id, {
+          //markdown        : markdownObj.text(),
+          htmlDecode      : "style,script,iframe",  // you can filter tags decode
+          tocm            : true,    // Using [TOCM]
+          // markdownSourceCode : true, // 是否保留 Markdown 源码，即是否删除保存源码的 Textarea 标签
+          emoji           : true,
+          taskList        : true,
+          tex             : true,  // 默认不解析
+          flowChart       : true,  // 默认不解析
+          sequenceDiagram : true,  // 默认不解析
+        });
       }
-  </script>
+    </script>
 
     [#if apiDoc??]
       <div class="page-header">
@@ -273,11 +273,11 @@
               <td class="text-nowrap"><ul class="list-unstyled">[#list resourceGroup.paths as path]<li><samp>[@deprecation element=resourceGroup]<span class="resource-path">[#if includeApplicationPath!false && resourceGroup.relativeContextPath?length > 0]/${resourceGroup.relativeContextPath}[/#if]${path.path}</span>[/@deprecation]</samp></li>[/#list]</ul></td>
               <td class="text-nowrap"><ul class="list-unstyled">[#list resourceGroup.paths as path]<li><samp>[@deprecation element=resourceGroup][#list path.methods as method]<span class="label label-default resource-method">${method}</span> [/#list][/@deprecation]</samp></li>[/#list]</ul></td>
               <td id='${resourceGroup.slug!"&nbsp;"}'>[@deprecation element=resourceGroup]<span class="resource-description"><textarea style="width: 100%; border: 0px;" readonly>${resourceGroup.description!"&nbsp;"}</textarea></span>[/@deprecation]</td>
-                <script type="text/javascript">
-                    $(function() {
-                        convertMarkdownToHtml('${resourceGroup.slug!"&nbsp;"}');
-                    });
-                </script>
+              <script type="text/javascript">
+                $(function() {
+                  convertMarkdownToHtml('${resourceGroup.slug!"&nbsp;"}');
+                });
+              </script>
             </tr>
           [/#list]
           </tbody>
@@ -343,12 +343,12 @@
               [#list ns.types as type]
                 <tr class="clickable-row" data-href="${type.slug}.html">
                   <td>[@deprecation element=type]<span class="datatype-name[#list type.styles as style] ${style}[/#list]">${type.label}</span>[/@deprecation]</td>
-                   <td id='${type.slug!"&nbsp;"}'>[@deprecation element=type]<span class="datatype-description"><textarea style="width: 100%; border: 0px;" readonly>${type.description!"&nbsp;"}</textarea></span>[/@deprecation]</td>
-                    <script type="text/javascript">
-                        $(function() {
-                            convertMarkdownToHtml('${type.slug!"&nbsp;"}');
-                        });
-                    </script>
+                  <td id='${type.slug!"&nbsp;"}'>[@deprecation element=type]<span class="datatype-description"><textarea style="width: 100%; border: 0px;" readonly>${type.description!"&nbsp;"}</textarea></span>[/@deprecation]</td>
+                  <script type="text/javascript">
+                    $(function() {
+                      convertMarkdownToHtml('${type.slug!"&nbsp;"}');
+                    });
+                  </script>
                 </tr>
               [/#list]
               </tbody>
@@ -586,11 +586,11 @@
       [#if resourceGroup.description??]
 
         <p id="page_header_description"><textarea style="width: 100%; border: 0px;" readonly>${resourceGroup.description}</textarea></p>
-                    <script type="text/javascript">
-                        $(function() {
-                            convertMarkdownToHtml("page_header_description");
-                        });
-                    </script>
+        <script type="text/javascript">
+          $(function() {
+            convertMarkdownToHtml("page_header_description");
+          });
+        </script>
       [/#if]
       [#list resourceGroup.resources as resource]
         [#if resource.since?? || resource.version?? || resource.seeAlso??]
@@ -662,19 +662,19 @@
             [#if method.parameters?size > 0]
 
               <table class="table resource-parameters">
-                <caption>Request Parameters （以表单 key=value 的方式提交参数，比如 application/x-www-form-urlencoded ）</caption>
+                <caption>Request Parameters 请求参数 （以表单 key=value 的方式提交参数，比如 application/x-www-form-urlencoded ）</caption>
                 <thead>
                 <tr>
-                  <th>name</th>
-                  <th>type</th>
-                  <th>description</th>
+                  <th>name 参数名</th>
+                  <th>type 参数类型</th>
+                  <th>description 参数描述</th>
                   [#assign includeDefault=method.includeDefaultParameterValues/]
                   [#if includeDefault]
-                    <th>default</th>
+                    <th>default 参数默认值</th>
                   [/#if]
                   [#assign includeConstraints=method.hasParameterConstraints/]
                   [#if includeConstraints]
-                    <th>constraints</th>
+                    <th>constraints 参数约束</th>
                   [/#if]
                   [#assign includeMultiplicity=method.hasParameterMultiplicity/]
                   [#if includeMultiplicity]
@@ -705,13 +705,13 @@
             [#if method.requestEntity??]
 
               <table class="table resource-request-body">
-                <caption>Request Body （以 payload 的方式提交参数，比如 application/json 提交方式）</caption>
+                <caption>Request Body 请求数据 （以 payload 的方式提交参数，比如 application/json 提交方式）</caption>
                 <thead>
                 <tr>
                   <th>media type</th>
-                  <th>data type</th>
+                  <th>data type 数据类型</th>
                   [#if method.requestEntity.description??]
-                    <th>description</th>
+                    <th>description 数据描述</th>
                   [/#if]
                 </tr>
                 </thead>
@@ -763,13 +763,13 @@
             [#if method.responseEntity??]
 
               <table class="table resource-response-body">
-                <caption>Response Body （以 payload 的方式返回结果，比如 application/json 提交方式）</caption>
+                <caption>Response Body 返回数据 （以 payload 的方式返回结果，比如 application/json 提交方式）</caption>
                 <thead>
                 <tr>
                   <th>media type</th>
-                  <th>data type</th>
+                  <th>data type 数据类型</th>
                   [#if method.responseEntity.description??]
-                    <th>description</th>
+                    <th>description 数据描述</th>
                   [/#if]
                 </tr>
                 </thead>
@@ -1096,43 +1096,43 @@ ${method.example.responseBody?xhtml}
   [/#if]
   [@file name=type.slug + ".html"]
     [@boilerplate title=title + ": " + type.label breadcrumbs=[{"title" : "Home", "href" : indexPageName}, {"title" : type.syntax.label , "href" : type.syntax.slug + ".html"}, {"title" : type.label , "href" : type.slug + ".html"} ] pagenav=pagenav codeblocks=true]
-  <script src="js/jquery/jquery.min.js"></script>
-  <script src="js/editor/marked.min.js"></script>
-  <script src="js/editor/prettify.min.js"></script>
-  <script src="js/editor/raphael.min.js"></script>
-  <script src="js/editor/underscore.min.js"></script>
-  <script src="js/editor/sequence-diagram.min.js"></script>
-  <script src="js/editor/flowchart.min.js"></script>
-  <script src="js/editor/jquery.flowchart.min.js"></script>
-  <script src="js/editor/editormd.min.js"></script>
+      <script src="js/jquery/jquery.min.js"></script>
+      <script src="js/editor/marked.min.js"></script>
+      <script src="js/editor/prettify.min.js"></script>
+      <script src="js/editor/raphael.min.js"></script>
+      <script src="js/editor/underscore.min.js"></script>
+      <script src="js/editor/sequence-diagram.min.js"></script>
+      <script src="js/editor/flowchart.min.js"></script>
+      <script src="js/editor/jquery.flowchart.min.js"></script>
+      <script src="js/editor/editormd.min.js"></script>
 
-  <script type="text/javascript">
-      function convertMarkdownToHtml(id) {
+      <script type="text/javascript">
+        function convertMarkdownToHtml(id) {
           testEditormdView = editormd.markdownToHTML(id, {
-              //markdown        : markdownObj.text(),
-              htmlDecode      : "style,script,iframe",  // you can filter tags decode
-              tocm            : true,    // Using [TOCM]
-              // markdownSourceCode : true, // 是否保留 Markdown 源码，即是否删除保存源码的 Textarea 标签
-              emoji           : true,
-              taskList        : true,
-              tex             : true,  // 默认不解析
-              flowChart       : true,  // 默认不解析
-              sequenceDiagram : true,  // 默认不解析
+            //markdown        : markdownObj.text(),
+            htmlDecode      : "style,script,iframe",  // you can filter tags decode
+            tocm            : true,    // Using [TOCM]
+            // markdownSourceCode : true, // 是否保留 Markdown 源码，即是否删除保存源码的 Textarea 标签
+            emoji           : true,
+            taskList        : true,
+            tex             : true,  // 默认不解析
+            flowChart       : true,  // 默认不解析
+            sequenceDiagram : true,  // 默认不解析
           });
-      }
-  </script>
+        }
+      </script>
 
-    <h1 class="page-header">${type.label} <small>Data Type</small></h1>
+      <h1 class="page-header">${type.label} <small>Data Type</small></h1>
       [#if type.deprecated??]
 
         <div class="alert alert-danger">This data type has been deprecated. ${type.deprecated}</div>
       [/#if]
       [#if type.description??]
         <p id="page_header_description"><textarea style="width: 100%; border: 0px;" readonly>${type.description}</textarea></p>
-                    <script type="text/javascript">
-                        $(function() {
-                            convertMarkdownToHtml("page_header_description");
-                        });
+        <script type="text/javascript">
+          $(function() {
+            convertMarkdownToHtml("page_header_description");
+          });
         </script>
       [/#if]
 
@@ -1199,15 +1199,19 @@ ${method.example.responseBody?xhtml}
       [#if type.properties??]
 
         <table class="table datatype-properties">
-          <caption>Properties</caption>
+          <caption>Properties 字段信息</caption>
           <thead>
           <tr>
-            <th>name</th>
-            <th>data type</th>
+            <th>name 字段名</th>
+            <th>data type 字段类型</th>
             [#list type.propertyMetadata?keys as meta]
-              <th>${type.propertyMetadata[meta]}</th>
+              [#if type.propertyMetadata[meta] == "constraints"]
+                <th>constraints 字段约束</th>
+              [#else]
+                <th>${type.propertyMetadata[meta]}</th>
+              [/#if]
             [/#list]
-            <th>description</th>
+            <th>description 字段描述</th>
           </tr>
           </thead>
           <tbody>
@@ -1219,11 +1223,11 @@ ${method.example.responseBody?xhtml}
                 <td>[@deprecation element=property]<span class="property-${meta}">[@printPropertyMetadata property=property meta=meta/]</span>[/@deprecation]</td>
               [/#list]
               <td>[@deprecation element=property]<span class="property-description">[#if property.since??]<span class="label label-default">since ${property.since}</span> [/#if] <div id="abcabce-${property_index}"><textarea  style="width: 100%; border: 0px;" readonly>${property.description!"&nbsp;"}</textarea></div></span>[/@deprecation]</td>
-                <script type="text/javascript">
-                    $(function() {
-                        convertMarkdownToHtml("abcabce-${property_index}");
-                    });
-                </script>
+              <script type="text/javascript">
+                $(function() {
+                  convertMarkdownToHtml("abcabce-${property_index}");
+                });
+              </script>
             </tr>
           [/#list]
           </tbody>
@@ -1242,11 +1246,11 @@ ${method.example.responseBody?xhtml}
                       <td><span class="property-${meta}">[@printPropertyMetadata property=superProperty meta=meta/]</span></td>
                     [/#list]
                     <td><span class="property-description">[#if superProperty.since??]<span class="label label-default">since ${superProperty.since}</span> [/#if]<div id="abcabc-${superProperty_index}"><textarea  style="width: 100%; border: 0px;" readonly>${superProperty.description!"&nbsp;"}</textarea></div></span></td>
-                      <script type="text/javascript">
-                          $(function() {
-                              convertMarkdownToHtml("abcabc-${superProperty_index}");
-                          });
-                      </script>
+                    <script type="text/javascript">
+                      $(function() {
+                        convertMarkdownToHtml("abcabc-${superProperty_index}");
+                      });
+                    </script>
                   </tr>
                 [/#list]
                 </tbody>
